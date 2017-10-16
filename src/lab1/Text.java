@@ -836,5 +836,3 @@ public class Text {
 	}
 
 }
-
-

@@ -1,15 +1,1 @@
-digraph G {
-	there -> exists;
-
-many[fillcolor=yellow,style=filled,Label="many"];	exists -> many;
-	many -> ways;
-	ways -> to;
-	to -> find;
-
-the[fillcolor=yellow,style=filled,Label="the"];	find -> there;
-	the -> future;
-	future -> contemporary;
-
-computer[fillcolor=yellow,style=filled,Label="computer"];	contemporary -> computer;
-	computer -> cafeteria;
-}
+a
