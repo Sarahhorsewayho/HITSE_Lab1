@@ -55,5 +55,5 @@ to[fillcolor=yellow,style=filled,Label="to"];
 out[fillcolor=yellow,style=filled,Label="out"];
 seek[fillcolor=red,style=filled,Label="seek"];
 find[fillcolor=red,style=filled,Label="find"];
-look[fillcolor=red,style=filled,Label="look"];
+look[fillcolor=red,style=filled,Label="looks"];
 }

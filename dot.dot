@@ -50,5 +50,5 @@ digraph G {
 	computer -> contemporary;
 	computer -> hit;
 	usually -> computer;
-	freestyle -> computer;
+	freestyle -> computerer;
 }
