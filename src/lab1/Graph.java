@@ -16,7 +16,7 @@ public class Graph {
     public int[][] edge;
     /**
      */
-    public String[] strr; //Ô­Ê¼×Ö·û´®
+    public String[] strr; //åŸå§‹å­—ç¬¦ä¸²
     /**
      */
     public int n;
@@ -63,7 +63,7 @@ public class Graph {
      *@param y integer
      *@return integer
      */
-    public final int getedge(final int x, final int y) { //·µ»Ø±ßx->y
+    public final int getedge(final int x, final int y) { //è¿”å›è¾¹x->y
         return edge[x][y];
     }
     /**
@@ -87,7 +87,7 @@ public class Graph {
      *@param i integer
      *@return String
      */
-    public final String getstr(final int i) { //·µ»ØµÚi¸öÔ­Ê¼×Ö·û´®
+    public final String getstr(final int i) { //è¿”å›ç¬¬iä¸ªåŸå§‹å­—ç¬¦ä¸²
         String key = null;
         Integer integ = null;
         Iterator<Entry<String, Integer>> iter =
@@ -120,13 +120,13 @@ public class Graph {
         File file = new File("text.txt");
         Reader reader = null;
         try {
-            //System.out.println("ÒÔ×Ö·ûÎªµ¥Î»¶ÁÈ¡ÎÄ¼şÄÚÈİ£¬Ò»´Î¶ÁÒ»¸ö×Ö½Ú£º");
-            // Ò»´Î¶ÁÒ»¸ö×Ö·û
+            //System.out.println("ä»¥å­—ç¬¦ä¸ºå•ä½è¯»å–æ–‡ä»¶å†…å®¹ï¼Œä¸€æ¬¡è¯»ä¸€ä¸ªå­—èŠ‚ï¼š");
+            // ä¸€æ¬¡è¯»ä¸€ä¸ªå­—ç¬¦
             reader = new InputStreamReader(new FileInputStream(file));
             int tempchar;
             char temp;
-            String[] str = new String[CON1]; //´æ´¢Ô­Ê¼×Ö·û´®¶Î
-            strr = new String[CON1]; //´æ´¢³ıÈ¥×Ö·ûµÄµ¥´Ê
+            String[] str = new String[CON1]; //å­˜å‚¨åŸå§‹å­—ç¬¦ä¸²æ®µ
+            strr = new String[CON1]; //å­˜å‚¨é™¤å»å­—ç¬¦çš„å•è¯
             char[] chararr = new char[CON2];
             int m = -1;
             int h = -1;
@@ -163,7 +163,7 @@ public class Graph {
             for (int i = 0; i <= m; i++) {
                 if (str[i].length() != 0) {
                     k++;
-                    str[i] = str[i].toLowerCase(); //ĞŞ¸ÄÎªĞ¡Ğ´µ¥´Ê
+                    str[i] = str[i].toLowerCase(); //ä¿®æ”¹ä¸ºå°å†™å•è¯
                     strr[k] = str[i];
                     //System.out.print(strr[k]);
                         //System.out.print(" ");
@@ -172,8 +172,8 @@ public class Graph {
             //System.out.print("\r\n");
             reader.close();
             this.n = k + 1;
-            map = new HashMap<String, Integer>(); //map½¨Á¢×Ö·û´®ºÍ±ßµÄÓ³Éä
-            repeat = new HashMap<Integer, Integer>(); //repeatÑéÖ¤ÖØ¸´µ¥´Ê
+            map = new HashMap<String, Integer>(); //mapå»ºç«‹å­—ç¬¦ä¸²å’Œè¾¹çš„æ˜ å°„
+            repeat = new HashMap<Integer, Integer>(); //repeatéªŒè¯é‡å¤å•è¯
             for (int i = 0; i <= k; i++) {
                 map.put(strr[i], 0);
                 repeat.put(i, 0);
@@ -181,7 +181,7 @@ public class Graph {
             for (int i = 0; i <= k; i++) {
                 if (map.get(strr[i]) == 0) {
                     map.put(strr[i], i + 1);
-                    //µ¥´ÊºÍ½áµãĞòºÅÖ®¼ä½¨Á¢Ó³Éä£¬ÇÒ±£Ö¤µ¥´Ê²»ÖØ¸´¡£
+                    //å•è¯å’Œç»“ç‚¹åºå·ä¹‹é—´å»ºç«‹æ˜ å°„ï¼Œä¸”ä¿è¯å•è¯ä¸é‡å¤ã€‚
                     } else {
                         repeat.put(i, 1);
                         }

@@ -87,14 +87,14 @@ Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab
      *            aaa
      * @return aaaa
      */
-public final String queryBridgeWords(final String word1, final String word2) {
-        int x = g.getpos(word1);
+public final String queWords(final String word1, final String word2) {
+	    StringBuilder result = new StringBuilder();
+	    int x = g.getpos(word1);
         int y = g.getpos(word2);
         int n = g.getn();
-        final int u = 100;
+        int u = 100;
         int[] pos = new int[u];
         int k = -1;
-        StringBuilder result = new StringBuilder();
         if ((x != -1) && (y != -1)) {
             for (int i = 0; i <= n; i++) {
                 if (((g.getedge(x, i) != J) && (g.getedge(i, y) != J))
@@ -108,41 +108,6 @@ public final String queryBridgeWords(final String word1, final String word2) {
             try {
 String gvout = "F:\\\\Java\\\\eclipse_workspace\\\\lab1\\\\bridge.dot";
                 FileOutputStream fos = new FileOutputStream(gvout);
-                OutputStreamWriter fw = new OutputStreamWriter(fos, "UTF-8");
-                fw.write("digraph G {");
-                for (int i = 1; i <= n; i++) {
-                    for (int j = 1; j <= n; j++) {
-                        if ((g.getedge(i, j) != J)) {
-                            fw.write('\t');
-                            fw.write(g.getstr(i));
-                            fw.write(" -> ");
-                            fw.write(g.getstr(j));
-                            fw.write(";\r\n");
-// System.out.println(i+"，"+j+"："+g.Getstr(i)+"->"+g.Getstr(j));
-                        }
-                    }
-
-                }
-                fw.write("\r\n");
-                fw.write(g.getstr(x));
-                fw.write("[fillcolor=yellow,style=filled,Label=\"");
-                fw.write(g.getstr(x));
-                fw.write("\"];");
-                fw.write("\r\n");
-                fw.write(g.getstr(y));
-                fw.write("[fillcolor=yellow,style=filled,Label=\"");
-                fw.write(g.getstr(y));
-                fw.write("\"];");
-                fw.write("\r\n");
-                for (int i = 0; i <= k; i++) {
-                    fw.write(g.getstr(pos[i]));
-                    fw.write("[fillcolor=red,style=filled,Label=\"");
-                    fw.write(g.getstr(pos[i]));
-                    fw.write("\"];");
-                    fw.write("\r\n");
-                }
-                fw.write("}");
-                fw.close();
                 String path = "dot Kdot -Tpng bridge.dot -o bridge.png";
                 try {
 Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab1"));
@@ -166,30 +131,29 @@ Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab
      *            aaa
      * @return aaaa
      */
-    public final String generateNewText(final String inputText) {
+    public final String genText(final String inputText) {
         StringBuilder builder = new StringBuilder();
         try {
 String gvout = "F:\\\\Java\\\\eclipse_workspace\\\\lab1\\\\NewWord.dot";
             FileOutputStream fos = new FileOutputStream(gvout);
-            OutputStreamWriter fw = new OutputStreamWriter(fos, "UTF-8");
-            fw.write("digraph G {");
-            fw.write("\r\n");
 
             char[] charray = inputText.toCharArray();
-            final int rrr = 1000;
+            int rrr = 1000;
             String[] strarray = new String[rrr];
             String[] strr = new String[J];
             String temp;
             final int eee = 30;
             char[] chararr = new char[eee];
-            int n, m, w;
+            int n;
+            int m;
+            int w;
             n = -1;
             m = -1;
             w = -1;
-            final int u1 = 65;
-            final int u2 = 90;
-            final int u3 = 97;
-            final int u4 = 122;
+            int u1 = 65;
+            int u2 = 90;
+            int u3 = 97;
+            int u4 = 122;
             for (int l = 0; l < charray.length; l++) {
 if (((charray[l] >= u1) && (charray[l] <= u2)) || ((charray[l] >= u3) && (charray[l] <= u4))) {
                     n++;
@@ -237,48 +201,16 @@ if (((charray[l] >= u1) && (charray[l] <= u2)) || ((charray[l] >= u3) && (charra
             for (int i = 0; i < w; i++) {
                 builder.append(strr[i]);
                 builder.append(' ');
-                temp = queryBridgeWords(strr[i], strr[i + 1]);
+                temp = queWords(strr[i], strr[i + 1]);
                 String[] array2 = temp.split(" ");
                 // System.out.println(i+strr[i]+"->"+strr[i+1]);
                 // for(int k=0;k<array2.length;k++)
                 // {
                 // System.out.println(k+":="+array2[k]);
-                // }
-                if (temp.length() != 0) {
-                    Random ran = new Random();
-                    int q = ran.nextInt(array2.length);
-                    builder.append(array2[q]);
-                    builder.append(" ");
-                    fw.write("\r\n");
-                    fw.write(array2[q]);
-                    fw.write("[fillcolor=yellow,style=filled,Label=\"");
-                    fw.write(array2[q]);
-                    fw.write("\"];");
-
-                    fw.write('\t');
-                    fw.write(strr[i]);
-                    fw.write(" -> ");
-                    fw.write(array2[q]);
-                    fw.write(";\r\n");
-
-                    fw.write('\t');
-                    fw.write(array2[q]);
-                    fw.write(" -> ");
-                    fw.write(strr[i + 1]);
-                    fw.write(";\r\n");
-                } else {
-
-                    fw.write('\t');
-                    fw.write(strr[i]);
-                    fw.write(" -> ");
-                    fw.write(strr[i + 1]);
-                    fw.write(";\r\n");
-                }
+                // } 
 
             }
             builder.append(strr[w]);
-            fw.write("}");
-            fw.close();
             String path = "dot Kdot -Tpng NewWord.dot -o NewWord.png";
             try {
 Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab1"));
@@ -299,7 +231,7 @@ Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab
      *            henhao
      * @return henhao
      */
-public final String calcShortestPath(final String word1, final String word2) {
+public final String calPath(final String word1, final String word2) {
         if (g.isingraph(word1) == 0) {
             return "我们的图里不存在这样的单词";
         }
@@ -307,7 +239,8 @@ public final String calcShortestPath(final String word1, final String word2) {
             return "我们的图里不存在这样的单词";
         }
         int x = g.getpos(word1);
-        int y = 0, muti = 0;
+        int y = 0;
+        	int muti = 0;
         if (!word2.equals("")) {
             y = g.getpos(word2);
         }
@@ -391,7 +324,7 @@ public final String calcShortestPath(final String word1, final String word2) {
         }
 
         returnarr = builder.toString();
-        shortestphoto(returnarr, flag);
+        shorPh(returnarr, flag);
         return returnarr;
     }
 
@@ -401,57 +334,16 @@ public final String calcShortestPath(final String word1, final String word2) {
      * @param flag
      *            aaa
      */
-    final void shortestphoto(final String str, final int flag) {
-        StringBuilder builder = new StringBuilder();
+    final void shorPh(final String str, final int flag) {
+        //StringBuilder builder = new StringBuilder();
         int n = g.getn();
 
         if (flag == 1) {
             try {
 String gvout = "F:\\\\Java\\\\eclipse_workspace\\\\lab1\\\\shortest2.dot";
                 FileOutputStream fos = new FileOutputStream(gvout);
-                OutputStreamWriter fw = new OutputStreamWriter(fos, "UTF-8");
-                fw.write("digraph G {");
-                fw.write("\r\n");
-
-                for (int i = 1; i <= n; i++) {
-                    for (int j = 1; j <= n; j++) {
-                        if (g.getedge(i, j) != J) {
-                            fw.write('\t');
-                            fw.write(g.getstr(i));
-                            fw.write(" -> ");
-                            fw.write(g.getstr(j));
-                            fw.write(";\r\n");
- // System.out.println(i+"，"+j+"："+g.Getstr(i)+"->"+g.Getstr(j));
-                        }
-                    }
-
-                }
 
                 String[] strarray = str.split("->");
-                for (int i = 0; i < strarray.length; i++) {
-
-                    fw.write("\r\n");
-                    fw.write(strarray[i]);
-                    fw.write("[fillcolor=red,style=filled,Label=\"");
-                    fw.write(strarray[i]);
-                    fw.write("\"];");
-                    fw.write("\r\n");
-
-                }
-
-                for (int i = 0; i < strarray.length - 1; i++) {
-
-                    fw.write('\t');
-                    fw.write(strarray[i]);
-                    fw.write(" -> ");
-                    fw.write(strarray[i + 1]);
-                    fw.write("[color = \"blue\"]");
-                    fw.write(";\r\n");
-
-                }
-
-                fw.write("}");
-                fw.close();
                 String path = "dot Kdot -Tpng shortest2.dot -o shortest2.png";
                 try {
 Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab1"));
@@ -466,40 +358,7 @@ Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab
             try {
  String gvout = "F:\\\\Java\\\\eclipse_workspace\\\\lab1\\\\shortest.dot";
                 FileOutputStream fos = new FileOutputStream(gvout);
-                OutputStreamWriter fw = new OutputStreamWriter(fos, "UTF-8");
-                fw.write("digraph G {");
-                fw.write("\r\n");
-
-                for (int i = 1; i <= n; i++) {
-                    for (int j = 1; j <= n; j++) {
-                        if (g.getedge(i, j) != J) {
-                            fw.write('\t');
-                            fw.write(g.getstr(i));
-                            fw.write(" -> ");
-                            fw.write(g.getstr(j));
-                            fw.write("[color = \"blue\"]");
-                            fw.write(";\r\n");
- // System.out.println(i+"，"+j+"："+g.Getstr(i)+"->"+g.Getstr(j));
-                        }
-                    }
-
-                }
-
                 String[] strarray = str.split("\n");
-                for (int i = 0; i < strarray.length; i++) {
-                    String[] strarray1 = strarray[i].split("->");
-                    for (int j = 0; j < strarray1.length; j++) {
-                        fw.write("\r\n");
-                        fw.write(strarray1[j]);
-                        fw.write("[fillcolor=red,style=filled,Label=\"");
-                        fw.write(strarray1[j]);
-                        fw.write("\"];");
-                        fw.write("\r\n");
-                    }
-                }
-
-                fw.write("}");
-                fw.close();
                 String path = "dot Kdot -Tpng shortest.dot -o shortest.png";
                 try {
 Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab1"));
@@ -516,10 +375,6 @@ Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab
 
     /**
      * @param i
-     *            aa
-     * @param j
-     *            aa
-     * @param minPath
      *            aa
      * @return aa
      */
@@ -539,13 +394,14 @@ Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab
     /**
      * @return aaa
      */
-    public final String randomwalk() {
+    public final String ranwalk() {
         StringBuilder randomPath = new StringBuilder();
         int min = 1;
 
-        int s, p;
+        int s;
+        int p;
         int[][] putPath = new int[g.n + 1][g.n + 1];
-        final int rr = 500;
+        int rr = 500;
         int[] calRep = new int[rr];
         int cal = 1;
         for (int w = 1; w < g.n + 1; w++) {
@@ -569,7 +425,6 @@ Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab
         randomPath.append(g.getstr(s));
         if (havePath(s) == 0) {
             ranstr = randomPath.toString();
-            showrandom(ranstr);
             return ranstr;
         }
 
@@ -585,7 +440,6 @@ Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab
             randomPath.append(g.getstr(p));
             if (havePath(p) == 0) {
                 ranstr = randomPath.toString();
-                showrandom(ranstr);
                 return ranstr;
             }
             do {
@@ -596,90 +450,7 @@ Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab
         randomPath.append("->");
         randomPath.append(g.getstr(p));
         ranstr = randomPath.toString();
-
-        showrandom(ranstr);
         return ranstr;
-    }
-
-    /**
-     * @param ranstr
-     *            sss
-     */
-    public final void showrandom(final String ranstr) {
-        int n = g.getn();
-        try {
-            String[] ranarray = ranstr.split("->");
-            for (int w = 0; w < ranarray.length; w++) {
-                System.out.println(w + "=" + ranarray[w]);
-            }
- String gvout = "F:\\\\Java\\\\eclipse_workspace\\\\lab1\\\\random.dot";
-            FileOutputStream fos = new FileOutputStream(gvout);
-            OutputStreamWriter fw = new OutputStreamWriter(fos, "UTF-8");
-            fw.write("digraph G {");
-            fw.write("\r\n");
-
-            for (int i = 1; i <= n; i++) {
-                for (int j = 1; j <= n; j++) {
-                    if ((g.getedge(i, j) != J)) {
-                        fw.write('\t');
-                        fw.write(g.getstr(i));
-                        fw.write(" -> ");
-                        fw.write(g.getstr(j));
-                        fw.write(";\r\n");
-
-                    }
-                }
-
-            }
-            if (ranarray.length - 1 > 0) {
-                for (int i = 0; i < ranarray.length - 1; i++) {
-                    fw.write('\t');
-                    fw.write(ranarray[i]);
-                    fw.write(" -> ");
-                    fw.write(ranarray[i + 1]);
-                    fw.write("[color = \"blue\"]");
-                    fw.write(";\r\n");
-
-                }
-            }
-
-            fw.write("\r\n");
-            fw.write(ranarray[0]);
-            fw.write("[fillcolor=yellow,style=filled,Label=\"");
-            fw.write(ranarray[0]);
-            fw.write("\"];");
-            fw.write("\r\n");
-            if (ranarray.length > 0) {
-                for (int i = 1; i < ranarray.length - 1; i++) {
-                    fw.write("\r\n");
-                    fw.write(ranarray[i]);
-                    fw.write("[fillcolor=red,style=filled,Label=\"");
-                    fw.write(ranarray[i]);
-                    fw.write("\"];");
-                    fw.write("\r\n");
-
-                }
-            }
-
-            fw.write("\r\n");
-            fw.write(ranarray[ranarray.length - 1]);
-            fw.write("[fillcolor=yellow,style=filled,Label=\"");
-            fw.write(ranarray[ranarray.length - 1]);
-            fw.write("\"];");
-            fw.write("\r\n");
-            fw.write("}");
-            fw.close();
-            String path = "dot Kdot -Tpng random.dot -o random.png";
-            try {
- Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab1"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     /**
@@ -703,8 +474,8 @@ Runtime.getRuntime().exec(path, null, new File("F:\\Java\\eclipse_workspace\\lab
      */
     public static void main(final String[] args) {
         int time = 0;
-        final int tt = 3;
-        final int whi = 50;
+        int tt = 3;
+        int whi = 50;
         System.out.println("show—展示有向图" + '\n' + "br+word1+word2—查询桥接词" + '\n' + "getnew—生成新文本" + '\n'
                 + "shortest+word1—单源最短路径" + '\n' + "shortest+word1+word2—两点间最短路径" + '\n' + "random—随机游走");
         do {
@@ -742,7 +513,7 @@ System.out.println("No “" + word1 + "” in the graph!");
                     } else if (g.isingraph(word2) == 0) {
 System.out.println("No “" + word2 + "” in the graph!");
                     } else {
-                        re = t.queryBridgeWords(word1, word2);
+                        re = t.queWords(word1, word2);
                         if (re.length() == 0) {
 System.out.println("No bridge words from “" + word1 + "” to “" + word2 + "!");
                         } else {
@@ -767,13 +538,13 @@ System.out.println("The bridge words from ?“" + word1 + "”?to?“" + word2 +
                     String outputText;
                     inputText = sc.nextLine();
                     System.out.println("输出插入桥连接词文本");
-                    outputText = t.generateNewText(inputText);
+                    outputText = t.genText(inputText);
                     System.out.println(outputText);
                 }
             } else if (cmdarray[0].equals("shortest")) {
 
                 int a = 0;
-                final int h = 3;
+                int h = 3;
                 String min;
                 for (int k = 0; k < cmdarray.length; k++) {
                     if (null != cmdarray[k]) {
@@ -783,12 +554,12 @@ System.out.println("The bridge words from ?“" + word1 + "”?to?“" + word2 +
                 if (a == 2) {
                     word1 = cmdarray[1];
                     word2 = "";
-                    min = t.calcShortestPath(word1, word2);
+                    min = t.calPath(word1, word2);
                     System.out.println(min);
                 } else if (a == h) {
                     word1 = cmdarray[1];
                     word2 = cmdarray[2];
-                    min = t.calcShortestPath(word1, word2);
+                    min = t.calPath(word1, word2);
                     System.out.println(min);
                 } else {
                     System.out.println("非法输入！");
@@ -806,7 +577,7 @@ System.out.println("The bridge words from ?“" + word1 + "”?to?“" + word2 +
                     System.out.println("非法输入！");
                 } else {
                     String randompath;
-                    randompath = t.randomwalk();
+                    randompath = t.ranwalk();
 
                     System.out.println(randompath);
                 }
